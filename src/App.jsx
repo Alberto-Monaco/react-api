@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
 const initialFormData = {
 	title: '',
@@ -10,6 +10,16 @@ const initialFormData = {
 function App() {
 	const [formData, setFormData] = useState(initialFormData)
 	const [articles, setArticles] = useState([])
+
+	function fetchData(url = 'http://localhost:3006/posts/') {
+		fetch(url)
+			.then((resp) => resp.json())
+			.then((data) => {
+				setArticles(data.data)
+			})
+	}
+
+	useEffect(fetchData, [])
 
 	function handleFormField(e) {
 		const value = e.target.type === 'checkbox' ? e.target.checked : e.target.value
@@ -36,7 +46,6 @@ function App() {
 		<>
 			<div className='container  my-3'>
 				<h1>React form</h1>
-
 				<div
 					id='off-canvas-form'
 					popover='true'
@@ -135,13 +144,14 @@ function App() {
 				<button type='button' className='btn btn-primary my-3' popovertarget='off-canvas-form'>
 					Add Article
 				</button>
+
 				<ul className='list-group'>
 					{articles.map((article, index) => (
 						<li
 							key={index}
 							className='list-group-item d-flex justify-content-between align-items-center border rounded mb-3 p-3'>
 							<div className='d-flex align-items-center gap-3'>
-								<img src={article.image} style={{ maxWidth: '150px' }} />
+								<img src={'http://localhost:3006/imgs/posts/' + article.image} style={{ maxWidth: '150px' }} />
 								<div>
 									<h5>{article.title}</h5>
 									<div>
