@@ -152,12 +152,16 @@ function App() {
 							key={index}
 							className='list-group-item d-flex justify-content-between align-items-center border rounded mb-3 p-3'>
 							<div className='d-flex align-items-center gap-3'>
-								<img src={'http://localhost:3006/imgs/posts/' + article.image} style={{ maxWidth: '150px' }} />
+								<img src={'http://localhost:3006/imgs/posts/' + article.image} style={{ maxWidth: '300px' }} />
 								<div>
-									<h5>{article.title}</h5>
+									<h3>{article.title}</h3>
 									<div>
-										<div>Content: {article.content}</div>
-										<div>Category: {article.tags.join(', ')}</div>
+										<div>
+											<strong>Content:</strong> {article.content}
+										</div>
+										<div>
+											<strong>Category:</strong> {article.tags.join(', ')}
+										</div>
 										{article.published && <div className='badge bg-success '>Published</div>}
 									</div>
 								</div>
