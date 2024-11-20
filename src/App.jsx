@@ -1,3 +1,5 @@
+//si fa riferimento come api al progetto express-blog-api-crud
+
 import { useState, useEffect } from 'react'
 
 const initialFormData = {
