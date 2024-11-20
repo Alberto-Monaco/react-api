@@ -5,7 +5,8 @@ const initialFormData = {
 	image: '/img/1.jpg',
 	content: '',
 	category: '',
-	published: false
+	published: false,
+	tags: []
 }
 function App() {
 	const [formData, setFormData] = useState(initialFormData)
