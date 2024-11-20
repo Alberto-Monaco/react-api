@@ -156,7 +156,7 @@ function App() {
 									<h5>{article.title}</h5>
 									<div>
 										<div>Content: {article.content}</div>
-										<div>Category: {article.category}</div>
+										<div>Category: {article.tags.join(', ')}</div>
 										{article.published && <div className='badge bg-success '>Published</div>}
 									</div>
 								</div>
