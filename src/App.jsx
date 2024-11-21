@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react'
 
 const initialFormData = {
 	title: '',
-	image: '/img/1.jpg',
+	image: '/imgs/posts/1.jpg',
 	content: '',
 	category: '',
 	published: false,
