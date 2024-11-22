@@ -177,7 +177,7 @@ function App() {
 									src={'http://localhost:3006/imgs/posts/' + article.image}
 									className='card-img-top'
 									alt={article.title}
-									style={{ backgroundImage: 'cover', height: '300px' }}
+									style={{ backgroundImage: 'cover' }}
 								/>
 								<div className='card-body'>
 									<h5 className='card-title'>{article.title}</h5>
