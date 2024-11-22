@@ -35,8 +35,22 @@ function App() {
 
 	function addArticle(e) {
 		e.preventDefault()
-		setArticles([...articles, formData])
-		setFormData(initialFormData)
+
+		fetch('http://localhost:3006/posts', {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify(formData)
+		})
+			.then((response) => response.json())
+			.then((data) => {
+				fetchData()
+				setFormData(initialFormData)
+			})
+			.catch((error) => {
+				console.error('Errore durante il salvataggio:', error)
+			})
 	}
 
 	function deleteArticle(e) {
@@ -47,8 +61,8 @@ function App() {
 
 	return (
 		<>
-			<div className='container  my-3'>
-				<h1>React form</h1>
+			<div className='container my-3'>
+				<h1 className='text-center'>React form</h1>
 				<div
 					id='off-canvas-form'
 					popover='true'
@@ -56,8 +70,12 @@ function App() {
 					style={{ minHeight: '100vh' }}>
 					<div className='d-flex justify-content-between align-items-center'>
 						<h3>Add a new Article</h3>
-						<button className='btn btn-dark' type='button' popovertarget='off-canvas-form' popovertargetaction='hide'>
-							<i className='bi bi-x'></i> Close
+						<button
+							className='btn btn-primary'
+							type='button'
+							popovertarget='off-canvas-form'
+							popovertargetaction='hide'>
+							Close
 						</button>
 					</div>
 					<p>use the form below to add a new article</p>
@@ -91,6 +109,7 @@ function App() {
 								className='form-control'
 								placeholder='article image'
 								value={formData.image}
+								required
 								onChange={handleFormField}
 							/>
 						</div>
@@ -106,6 +125,7 @@ function App() {
 								className='form-control'
 								placeholder='article content'
 								value={formData.content}
+								required
 								onChange={handleFormField}
 							/>
 						</div>
@@ -121,6 +141,7 @@ function App() {
 								className='form-control'
 								placeholder='article category'
 								value={formData.category}
+								required
 								onChange={handleFormField}
 							/>
 						</div>
@@ -139,7 +160,7 @@ function App() {
 								onChange={handleFormField}
 							/>
 						</div>
-						<button type='submit' className='btn btn-secondary'>
+						<button type='submit' className='btn btn-success'>
 							<i className='bi bi-floppy'></i> Save
 						</button>
 					</form>
@@ -148,32 +169,41 @@ function App() {
 					Add Article
 				</button>
 
-				<ul className='list-group'>
+				<div className='row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4'>
 					{articles.map((article, index) => (
-						<li
-							key={index}
-							className='list-group-item d-flex justify-content-between align-items-center border rounded mb-3 p-3'>
-							<div className='d-flex align-items-center gap-3'>
-								<img src={'http://localhost:3006/imgs/posts/' + article.image} style={{ maxWidth: '300px' }} />
-								<div>
-									<h3>{article.title}</h3>
-									<div>
+						<div key={index} className='col'>
+							<div className='card h-100' style={{ position: 'relative' }}>
+								<img
+									src={'http://localhost:3006/imgs/posts/' + article.image}
+									className='card-img-top'
+									alt={article.title}
+									style={{ backgroundImage: 'cover', height: '300px' }}
+								/>
+								<div className='card-body'>
+									<h5 className='card-title'>{article.title}</h5>
+									<div className='card-text'>
 										<div>
-											<strong>Content:</strong> {article.content}
+											<strong>Content</strong>: {article.content}
 										</div>
 										<div>
-											<strong>Category:</strong> {article.tags.join(', ')}
+											<strong>Category</strong>: {article.tags?.join(', ')}
 										</div>
-										{article.published && <div className='badge bg-success '>Published</div>}
+										{article.published && <div className='badge bg-success'>Published</div>}
 									</div>
 								</div>
+								<div className='text-end mb-3 me-3'>
+									<button
+										className='btn btn-danger'
+										data-index={index}
+										style={{ position: 'absolute', top: '10px', right: '10px' }}
+										onClick={deleteArticle}>
+										🗑️
+									</button>
+								</div>
 							</div>
-							<button className='btn btn-danger' data-index={index} onClick={deleteArticle}>
-								🗑️
-							</button>
-						</li>
+						</div>
 					))}
-				</ul>
+				</div>
 			</div>
 		</>
 	)
