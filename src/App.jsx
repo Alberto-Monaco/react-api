@@ -1,7 +1,8 @@
 //si fa riferimento come api al progetto express-blog-api-crud
 
 import { useState, useEffect } from 'react'
-
+import AppCard from './components/AppCard'
+import AppOffCanvas from './components/AppOffCanvas'
 const initialFormData = {
 	title: '',
 	image: '1.jpg',
@@ -62,146 +63,18 @@ function App() {
 	return (
 		<>
 			<div className='container my-3'>
-				<h1 className='text-center'>React form</h1>
-				<div
-					id='off-canvas-form'
-					popover='true'
-					className='bg-light p-3 border-0 shadow-lg text-dark'
-					style={{ minHeight: '100vh' }}>
-					<div className='d-flex justify-content-between align-items-center'>
-						<h3>Add a new Article</h3>
-						<button
-							className='btn btn-primary'
-							type='button'
-							popovertarget='off-canvas-form'
-							popovertargetaction='hide'>
-							Close
-						</button>
-					</div>
-					<p>use the form below to add a new article</p>
-
-					<form onSubmit={addArticle}>
-						<div className='mb-3'>
-							<label htmlFor='title' className='form-label'>
-								Title
-							</label>
-
-							<input
-								type='text'
-								name='title'
-								id='title'
-								className='form-control'
-								placeholder='article title'
-								value={formData.title}
-								required
-								onChange={handleFormField}
-							/>
-						</div>
-						<div className='mb-3'>
-							<label htmlFor='image' className='form-label'>
-								Image
-							</label>
-
-							<input
-								type='text'
-								name='image'
-								id='image'
-								className='form-control'
-								placeholder='article image'
-								value={formData.image}
-								required
-								onChange={handleFormField}
-							/>
-						</div>
-						<div className='mb-3'>
-							<label htmlFor='content' className='form-label'>
-								Content
-							</label>
-
-							<input
-								type='text'
-								name='content'
-								id='content'
-								className='form-control'
-								placeholder='article content'
-								value={formData.content}
-								required
-								onChange={handleFormField}
-							/>
-						</div>
-						<div className='mb-3'>
-							<label htmlFor='category' className='form-label'>
-								Category
-							</label>
-
-							<input
-								type='text'
-								name='category'
-								id='category'
-								className='form-control'
-								placeholder='article category'
-								value={formData.category}
-								required
-								onChange={handleFormField}
-							/>
-						</div>
-						<div className='mb-3 form-check'>
-							<label htmlFor='published' className='form-check-label'>
-								Published
-							</label>
-
-							<input
-								type='checkbox'
-								name='published'
-								id='published'
-								className='form-check-input'
-								placeholder='article published'
-								checked={formData.published}
-								onChange={handleFormField}
-							/>
-						</div>
-						<button type='submit' className='btn btn-success'>
-							<i className='bi bi-floppy'></i> Save
-						</button>
-					</form>
+				<div className='d-flex justify-content-between align-items-center'>
+					<h1 className='text-center'>React form</h1>
+					<AppOffCanvas addArticle={addArticle} handleFormField={handleFormField} formData={formData} />
+					<button type='button' className='btn btn-primary my-3' popovertarget='off-canvas-form'>
+						Add Article
+					</button>
 				</div>
-				<button type='button' className='btn btn-primary my-3' popovertarget='off-canvas-form'>
-					Add Article
-				</button>
-
+			</div>
+			<div className='container my-3'>
 				<div className='row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4'>
 					{articles.map((article, index) => (
-						<div key={index} className='col'>
-							<div className='card h-100' style={{ position: 'relative' }}>
-								<img
-									src={'http://localhost:3006/imgs/posts/' + article.image}
-									className='card-img-top'
-									alt={article.title}
-									style={{ backgroundImage: 'cover' }}
-								/>
-								<div className='card-body'>
-									<h5 className='card-title'>{article.title}</h5>
-									<div className='card-text'>
-										<div>
-											<strong>Content</strong>: {article.content}
-										</div>
-										<div>
-											<strong>Category</strong>: {article.tags?.join(', ')}
-										</div>
-										{article.published && <div className='badge bg-success'>Published</div>}
-									</div>
-								</div>
-								<div className='text-end mb-3 me-3'>
-									<button
-										className='btn btn-danger'
-										data-index={index}
-										style={{ position: 'absolute', top: '10px', right: '10px' }}
-										onClick={deleteArticle}>
-										🗑️
-									</button>
-								</div>
-							</div>
-						</div>
+						<AppCard key={index} article={article} index={index} deleteArticle={deleteArticle} />
 					))}
 				</div>
 			</div>
