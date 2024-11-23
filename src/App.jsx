@@ -1,9 +1,9 @@
 //si fa riferimento come api al progetto express-blog-api-crud
 
 import { useState, useEffect } from 'react'
-import AppCard from './components/AppCard'
-import AppAddArticle from './components/AppAddArticle'
+
 import AppHeader from './components/AppHeader'
+import AppMain from './components/AppMain'
 const initialFormData = {
 	title: '',
 	image: '1.jpg',
@@ -64,14 +64,13 @@ function App() {
 	return (
 		<>
 			<AppHeader />
-			<AppAddArticle addArticle={addArticle} handleFormField={handleFormField} formData={formData} />
-			<section className='container my-3'>
-				<div className='row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4'>
-					{articles.map((article, index) => (
-						<AppCard key={index} article={article} index={index} deleteArticle={deleteArticle} />
-					))}
-				</div>
-			</section>
+			<AppMain
+				addArticle={addArticle}
+				handleFormField={handleFormField}
+				formData={formData}
+				articles={articles}
+				deleteArticle={deleteArticle}
+			/>
 		</>
 	)
 }
