@@ -2,7 +2,8 @@
 
 import { useState, useEffect } from 'react'
 import AppCard from './components/AppCard'
-import AppOffCanvas from './components/AppOffCanvas'
+import AppAddArticle from './components/AppAddArticle'
+import AppHeader from './components/AppHeader'
 const initialFormData = {
 	title: '',
 	image: '1.jpg',
@@ -62,22 +63,15 @@ function App() {
 
 	return (
 		<>
-			<div className='container my-3'>
-				<div className='d-flex justify-content-between align-items-center'>
-					<h1 className='text-center'>React form</h1>
-					<AppOffCanvas addArticle={addArticle} handleFormField={handleFormField} formData={formData} />
-					<button type='button' className='btn btn-primary my-3' popovertarget='off-canvas-form'>
-						Add Article
-					</button>
-				</div>
-			</div>
-			<div className='container my-3'>
+			<AppHeader />
+			<AppAddArticle addArticle={addArticle} handleFormField={handleFormField} formData={formData} />
+			<section className='container my-3'>
 				<div className='row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4'>
 					{articles.map((article, index) => (
 						<AppCard key={index} article={article} index={index} deleteArticle={deleteArticle} />
 					))}
 				</div>
-			</div>
+			</section>
 		</>
 	)
 }
