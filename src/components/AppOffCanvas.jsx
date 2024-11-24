@@ -31,6 +31,22 @@ export default function AppOffCanvas({ addArticle, handleFormField, formData }) 
 					/>
 				</div>
 				<div className='mb-3'>
+					<label htmlFor='slug' className='form-label'>
+						Slug
+					</label>
+
+					<input
+						type='text'
+						name='slug'
+						id='slug'
+						className='form-control'
+						placeholder='slug in lowercase and without spaces'
+						value={formData.slug}
+						required
+						onChange={handleFormField}
+					/>
+				</div>
+				<div className='mb-3'>
 					<label htmlFor='image' className='form-label'>
 						Image
 					</label>

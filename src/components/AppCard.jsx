@@ -15,6 +15,9 @@ export default function AppCard({ article, index, deleteArticle }) {
 							<strong>Content</strong>: {article.content}
 						</div>
 						<div>
+							<strong>Slug</strong>: {article.slug}
+						</div>
+						<div>
 							<strong>Category</strong>: {article.tags?.join(', ')}
 						</div>
 						{article.published && <div className='badge bg-success'>Published</div>}
@@ -24,6 +27,7 @@ export default function AppCard({ article, index, deleteArticle }) {
 					<button
 						className='btn btn-danger'
 						data-index={index}
+						data-slug={article.slug}
 						style={{ position: 'absolute', top: '10px', right: '10px' }}
 						onClick={deleteArticle}>
 						🗑️

@@ -56,9 +56,18 @@ function App() {
 	}
 
 	function deleteArticle(e) {
-		const articleIndexToDelete = Number(e.target.getAttribute('data-index'))
-		const newArticles = articles.filter((article, index) => index !== articleIndexToDelete)
-		setArticles(newArticles)
+		const articleSlugToDelete = e.target.getAttribute('data-slug')
+
+		fetch(`http://localhost:3006/posts/${articleSlugToDelete}`, {
+			method: 'DELETE'
+		})
+			.then((data) => {
+				const newArticles = articles.filter((article) => article.slug !== articleSlugToDelete)
+				setArticles(newArticles)
+			})
+			.catch((error) => {
+				console.error('Errore durante la cancellazione:', error)
+			})
 	}
 
 	return (
